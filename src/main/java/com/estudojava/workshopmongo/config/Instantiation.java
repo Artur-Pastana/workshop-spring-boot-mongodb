@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.estudojava.workshopmongo.domain.Post;
 import com.estudojava.workshopmongo.domain.User;
 import com.estudojava.workshopmongo.dto.AuthorDTO;
+import com.estudojava.workshopmongo.dto.CommentDTO;
 import com.estudojava.workshopmongo.repository.PostRepository;
 import com.estudojava.workshopmongo.repository.UserRepository;
 
@@ -41,6 +42,13 @@ public class Instantiation implements CommandLineRunner {
 		
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "vou viajar para o matapi, Abracos", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei Feli hoje!", new AuthorDTO(maria));
+		
+		CommentDTO c1 = new CommentDTO("Boa viagem", sdf.parse("21/03/2018"), new AuthorDTO(iris));
+		CommentDTO c2 = new CommentDTO("aproveite", sdf.parse("22/03/2018"), new AuthorDTO(anne));
+		CommentDTO c3 = new CommentDTO("tenha um ótimo dia", sdf.parse("23/03/2018"), new AuthorDTO(iris));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		//postRepository.save(Arrays.asList(post1, post2));da erro usando save
